@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/WordsAPI.main.iml" filepath="$PROJECT_DIR$/.idea/modules/WordsAPI.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/WordsApi.iml" filepath="$PROJECT_DIR$/.idea/modules/WordsApi.iml" />
     </modules>
   </component>
 </project>

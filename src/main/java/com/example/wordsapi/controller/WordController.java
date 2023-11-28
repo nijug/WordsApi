@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Validator;
+import org.springframework.validation.BindingResult;
 
 import java.util.Base64;
 import java.util.List;
@@ -83,7 +84,7 @@ public class WordController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateWord(@PathVariable String id, @RequestBody(required = false) Word word, @RequestHeader("Authorization") String authorizationHeader) {
+    public ResponseEntity<?> updateWord(@PathVariable String id, @RequestBody(required = false) Word word, BindingResult bindingResult, @RequestHeader("Authorization") String authorizationHeader) {
         if (!isValidAuthorization(authorizationHeader)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
         }
@@ -93,9 +94,16 @@ public class WordController {
             if (numericId <= 0) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
             }
-            if (word == null) {
+
+
+            if (bindingResult.hasErrors()) {
+
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            }
+            if(word.getName() != null && word.getName().equals("") && word.getDefinition().equals("") && word.getExample().equals("")) {
                 return ResponseEntity.status(HttpStatus.OK).body(null);
             }
+
 
             if (!wordRepository.existsById(numericId)) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -105,6 +113,7 @@ public class WordController {
             if (!violations.isEmpty()) {
                 return ResponseEntity.badRequest().body(null);
             }
+
             word.setId(numericId);
             Word updatedWord = wordRepository.save(word);
             return ResponseEntity.ok(updatedWord);
