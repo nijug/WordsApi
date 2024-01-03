@@ -31,9 +31,9 @@ public class WordController {
     }
 
     @GetMapping
-    public ResponseEntity<List<WordDTO>> getAllWords() {
-        List<WordDTO> wordDTOs = wordRepository.findAllWordsWithIdAndName();
-        return ResponseEntity.ok(wordDTOs);
+    public ResponseEntity<List<Word>> getAllWords() {
+        List<Word> words = wordRepository.findAll();
+        return ResponseEntity.ok(words);
     }
     @GetMapping("/{id}")
     public ResponseEntity<Word> getWordById(@PathVariable String id) {

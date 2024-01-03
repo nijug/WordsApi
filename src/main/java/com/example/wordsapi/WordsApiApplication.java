@@ -1,7 +1,9 @@
 package com.example.wordsapi;
 
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 
 @SpringBootApplication
 public class WordsApiApplication {
